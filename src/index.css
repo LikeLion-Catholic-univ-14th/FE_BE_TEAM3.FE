@@ -1,0 +1,400 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: #fff5f5;
+  font-family: sans-serif;
+}
+
+.card {
+  background-color: white;
+
+  padding: 20px;
+
+  margin-bottom: 20px;
+
+  border-radius: 16px;
+
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+
+  transition: 0.2s;
+}
+
+.card:hover {
+  transform: translateY(-4px);
+
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.12);
+}
+
+.card h3 {
+  margin-bottom: 10px;
+}
+
+.card p {
+  margin-bottom: 15px;
+
+  line-height: 1.5;
+}
+
+.card button {
+  padding: 8px 14px;
+
+  border: none;
+
+  border-radius: 8px;
+
+  cursor: pointer;
+
+  background-color: #ececec;
+}
+
+.card button:hover {
+  background-color: #dcdcdc;
+}
+
+.hero {
+  background: linear-gradient(
+    135deg,
+    #ff6b6b,
+    #ff8787
+  );
+
+  color: white;
+
+  margin: 20px;
+
+  padding: 40px;
+
+  border-radius: 16px;
+
+  text-align: center;
+
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.hero h2 {
+  margin-bottom: 15px;
+
+  font-size: 28px;
+}
+
+.hero p {
+  margin-top: 15px;
+
+  font-size: 18px;
+
+  color: rgba(255,255,255,0.9);
+}
+
+.main-layout {
+  display: flex;
+  gap: 20px;
+  padding: 20px;
+}
+
+.left-section {
+  flex: 7;
+}
+
+.right-section {
+  flex: 3;
+
+  display: flex;
+  flex-direction: column;
+
+  gap: 20px;
+}
+
+.side-box {
+  background-color: white;
+
+  padding: 20px;
+
+  border-radius: 12px;
+
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+
+  transition: 0.2s;
+}
+
+.side-box:hover {
+  transform: translateY(-4px);
+
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.12);
+}
+
+.header {
+  background-color: white;
+
+  padding: 25px 40px;
+
+  text-align: left;
+
+  font-size: 24px;
+
+  font-weight: bold;
+
+  color: #fa5252;
+
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.footer {
+  margin-top: 40px;
+
+  padding: 30px;
+
+  text-align: center;
+
+  background-color: white;
+
+  color: #666;
+
+  box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.battle-box {
+  margin-top: 15px;
+
+  display: flex;
+  flex-direction: column;
+
+  gap: 10px;
+}
+
+.battle-item {
+  background-color: #f4f4f4;
+
+  padding: 12px;
+
+  border-radius: 10px;
+
+  text-align: center;
+
+  cursor: pointer;
+
+  transition: 0.2s;
+}
+
+.battle-item:hover {
+  background-color: #ffe3e3;
+
+  transform: scale(1.02);
+}
+
+.vs {
+  text-align: center;
+
+  font-weight: bold;
+
+  color: #777;
+}
+
+.form-title {
+  margin-bottom: 20px;
+
+  font-size: 24px;
+}
+
+.form-input,
+.form-textarea {
+  width: 100%;
+
+  padding: 12px;
+
+  margin-bottom: 15px;
+
+  border: 1px solid #ddd;
+
+  border-radius: 10px;
+
+  font-size: 16px;
+}
+
+.form-textarea {
+  height: 120px;
+
+  resize: none;
+}
+
+.emotion-box {
+  display: flex;
+
+  gap: 10px;
+
+  margin-bottom: 20px;
+
+  font-size: 24px;
+}
+
+.emotion-box span {
+  cursor: pointer;
+
+  transition: 0.2s;
+}
+
+.emotion-box span:hover {
+  transform: scale(1.2);
+}
+
+.submit-btn {
+  width: 100%;
+
+  padding: 14px;
+
+  border: none;
+
+  border-radius: 10px;
+
+  background-color: #ff6b6b;
+
+  color: white;
+
+  font-size: 16px;
+
+  cursor: pointer;
+
+  transition: all 0.2s ease;
+}
+
+.submit-btn:hover {
+  background-color: #fa5252;
+
+  transform: translateY(-2px);
+
+  box-shadow: 0 4px 12px rgba(255, 107, 107, 0.3);
+}
+
+.card-top {
+  display: flex;
+
+  justify-content: space-between;
+
+  align-items: center;
+
+  margin-bottom: 15px;
+}
+
+.user-info {
+  display: flex;
+
+  align-items: center;
+
+  gap: 10px;
+}
+
+.emotion {
+  font-size: 22px;
+}
+
+.date {
+  font-size: 14px;
+
+  color: #888;
+}
+
+.card-content {
+  line-height: 1.6;
+
+  margin-bottom: 12px;
+}
+
+.card-bottom {
+  display: flex;
+
+  justify-content: flex-start;
+  
+  gap: 20px;
+
+  align-items: center;
+}
+
+.comment-count {
+  color: #666;
+}
+
+@media (max-width: 900px) {
+
+  .main-layout {
+    flex-direction: column;
+  }
+
+  .left-section,
+  .right-section {
+    width: 100%;
+  }
+
+}
+
+.card-bottom button {
+  border: none;
+
+  background-color: #f8f9fa;
+
+  padding: 8px 14px;
+
+  border-radius: 8px;
+
+  cursor: pointer;
+
+  transition: 0.2s;
+}
+
+.card-bottom button:hover {
+  background-color: #e9ecef;
+}
+
+.user-info h3 {
+  margin: 0;
+}
+
+.vote-item {
+  margin-top: 20px;
+}
+
+.vote-item p {
+  margin-bottom: 10px;
+}
+
+.vote-item button {
+  width: 100%;
+
+  padding: 10px;
+
+  border: none;
+
+  border-radius: 10px;
+
+  background-color: #ffe3e3;
+
+  cursor: pointer;
+
+  transition: 0.2s;
+}
+
+.vote-item button:hover {
+  background-color: #ffc9c9;
+}
+
+.vote-top {
+  display: flex;
+
+  justify-content: space-between;
+
+  align-items: center;
+
+  margin-bottom: 10px;
+}
+
+.vote-top p {
+  margin: 0;
+
+  font-weight: bold;
+}
+
+.vote-top span {
+  color: #666;
+}
