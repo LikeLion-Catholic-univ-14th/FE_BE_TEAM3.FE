@@ -4,45 +4,114 @@ import ExcuseCard from './components/ExcuseCard'
 import ExcuseForm from './components/ExcuseForm'
 import Footer from './components/Footer'
 import Sidebar from './components/Sidebar'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 
 function App() {
 
-  const [excuses, setExcuses] = useState([
-    {
-      id: 1,
-      nickname: '익명1',
-      emotion: '🤡',
-      content: '지하철에 외계인이 타서 늦었습니다.',
-      likes: 12,
-      comments: 4,
-      time: '5분 전'
-    },
+  const [excuses, setExcuses] = useState([])
 
-    {
-      id: 2,
-      nickname: '익명2',
-      emotion: '😭',
-      content: '강아지가 알람을 껐어요.',
-      likes: 8,
-      comments: 2,
-      time: '10분 전'
-    },
+  const fetchExcuses = async () => {
 
-    {
-      id: 3,
-      nickname: '익명3',
-      emotion: '🥲',
-      content: '교수님 메일이 스팸함에 들어갔습니다.',
-      likes: 20,
-      comments: 7,
-      time: '15분 전'
+    try {
+
+      const res = await fetch(
+        'http://localhost:8080/api/excuses'
+      )
+
+      const data = await res.json()
+
+      setExcuses(data)
+
+    } catch (err) {
+
+      console.log(err)
+
     }
-  ])
 
-  const addExcuse = (newExcuse) => {
+  }
 
-    setExcuses([newExcuse, ...excuses])
+  useEffect(() => {
+
+    fetchExcuses()
+
+  }, [])
+
+  const addExcuse = async (newExcuse) => {
+
+    try {
+
+      await fetch(
+        'http://localhost:8080/api/excuses',
+        {
+          method: 'POST',
+
+          headers: {
+            'Content-Type': 'application/json',
+          },
+
+          body: JSON.stringify({
+            nickname: newExcuse.nickname,
+            password: newExcuse.password,
+            content: newExcuse.content,
+            category: newExcuse.category,
+            emotionTag: newExcuse.emotionTag,
+          }),
+        }
+      )
+
+      fetchExcuses()
+
+    } catch (err) {
+
+      console.log(err)
+
+    }
+
+  }
+
+  const handleLike = async (id) => {
+
+    try {
+
+      await fetch(
+        `http://localhost:8080/api/excuses/${id}/like`,
+        {
+          method: 'POST',
+        }
+      )
+
+      fetchExcuses()
+
+    } catch (err) {
+
+      console.log(err)
+
+    }
+
+  }
+
+  const handleDelete = async (id) => {
+
+    const updated = excuses.filter(
+      (item) => item.id !== id
+    )
+
+    setExcuses(updated)
+
+    try {
+
+      await fetch(
+        `http://localhost:8080/api/excuses/${id}`,
+        {
+          method: 'DELETE',
+        }
+      )
+
+    } catch (err) {
+
+      console.log(err)
+
+    }
 
   }
 
@@ -55,7 +124,6 @@ function App() {
 
       <main className="main-layout">
 
-        {/* 왼쪽 영역 */}
         <section className="left-section">
 
           <h2 className="section-title">
@@ -67,6 +135,8 @@ function App() {
               <ExcuseCard
                 key={item.id}
                 excuse={item}
+                onLike={handleLike}
+                onDelete={handleDelete}
               />
             ))
           }
@@ -75,7 +145,6 @@ function App() {
 
         </section>
 
-        {/* 오른쪽 영역 */}
         <Sidebar />
 
       </main>
