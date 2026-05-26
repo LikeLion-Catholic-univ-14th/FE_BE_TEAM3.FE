@@ -13,126 +13,61 @@ function App() {
 
   // 전체 조회
   const fetchExcuses = async () => {
-
     try {
-
-      const res = await fetch(
-        'http://13.125.91.73:8080/api/excuses'
-      )
-
-      const data = await res.json()
-
-      setExcuses(data)
-
+      const res = await api.get('/excuses')
+      setExcuses(res.data)
     } catch (err) {
-
       console.log(err)
-
     }
-
   }
 
   useEffect(() => {
-
     fetchExcuses()
-
   }, [])
 
   // 게시글 추가
   const addExcuse = async (newExcuse) => {
-
     try {
-
-      await fetch(
-        'http://13.125.91.73:8080/api/excuses',
-        {
-          method: 'POST',
-
-          headers: {
-            'Content-Type': 'application/json',
-          },
-
-          body: JSON.stringify({
-            nickname: newExcuse.nickname,
-            password: newExcuse.password,
-            content: newExcuse.content,
-            category: newExcuse.category,
-            emotionTag: newExcuse.emotionTag,
-          }),
-        }
-      )
-
+      await api.post('/excuses', {
+        nickname: newExcuse.nickname,
+        password: newExcuse.password,
+        content: newExcuse.content,
+        category: newExcuse.category,
+        emotionTag: newExcuse.emotionTag,
+      })
       fetchExcuses()
-
     } catch (err) {
-
       console.log(err)
-
     }
-
   }
 
   // 좋아요
   const handleLike = async (id) => {
-
     try {
-
-      await fetch(
-        `http://13.125.91.73:8080/api/excuses/${id}/like`,
-        {
-          method: 'POST',
-        }
-      )
-
+      await api.post(`/excuses/${id}/like`)
       fetchExcuses()
-
     } catch (err) {
-
       console.log(err)
-
     }
-
   }
 
   // 삭제
   const handleDelete = async (id) => {
-
     const password = prompt('비밀번호를 입력하세요')
-
     if (!password) return
 
     try {
-
-      const res = await fetch(
-        `http://13.125.91.73:8080/api/excuses/${id}`,
-        {
-          method: 'DELETE',
-
-          headers: {
-            'Content-Type': 'application/json',
-          },
-
-          body: JSON.stringify({
-            password: password,
-          }),
-        }
-      )
-
-      if (!res.ok) {
-
-        alert('비밀번호가 틀렸습니다')
-        return
-
-      }
+      const res = await api.delete(`/excuses/${id}`, {
+        data: { password: password }
+      })
 
       fetchExcuses()
-
     } catch (err) {
-
       console.log(err)
-
+      if (err.response && err.response.status === 401) {
+        alert('비밀번호가 틀렸습니다')
+      }
     }
-
   }
 
   return (

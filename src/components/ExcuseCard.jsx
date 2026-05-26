@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import api from '../api/axios.js'
 
 function ExcuseCard({
   excuse,
@@ -34,100 +35,48 @@ function ExcuseCard({
 
   // 댓글 조회
   const fetchComments = async () => {
-
     try {
-
-      const res = await fetch(
-        `http://localhost:8080/api/excuses/${excuse.id}/comments`
-      )
-
-      const data = await res.json()
-
-      setComments(data)
-
+      const res = await api.get(`/excuses/${excuse.id}/comments`)
+      setComments(res.data)
     } catch (err) {
-
       console.log(err)
-
     }
-
   }
 
   // 댓글 등록
   const handleCommentSubmit = async () => {
-
     try {
-
-      await fetch(
-        `http://localhost:8080/api/excuses/${excuse.id}/comments`,
-        {
-          method: 'POST',
-
-          headers: {
-            'Content-Type': 'application/json',
-          },
-
-          body: JSON.stringify({
-            nickname: commentNickname,
-            content: commentContent,
-          }),
-        }
-      )
+      await api.post(`/excuses/${excuse.id}/comments`, {
+        nickname: commentNickname,
+        content: commentContent,
+      })
 
       setCommentNickname('')
       setCommentContent('')
 
       fetchComments()
-
     } catch (err) {
-
       console.log(err)
-
     }
-
   }
 
   // 수정
   const handleEditSubmit = async () => {
-
     try {
-
-      const res = await fetch(
-        `http://localhost:8080/api/excuses/${excuse.id}`,
-        {
-          method: 'PUT',
-
-          headers: {
-            'Content-Type': 'application/json',
-          },
-
-          body: JSON.stringify({
-            nickname: editNickname,
-            password: editPassword,
-            content: editContent,
-            category: excuse.category,
-            emotionTag: excuse.emotionTag,
-          }),
-        }
-      )
-
-      if (!res.ok) {
-
-        alert('수정 실패')
-        return
-
-      }
+      const res = await api.put(`/excuses/${excuse.id}`, {
+        nickname: editNickname,
+        password: editPassword,
+        content: editContent,
+        category: excuse.category,
+        emotionTag: excuse.emotionTag,
+      })
 
       setIsEditing(false)
-
       window.location.reload()
-
     } catch (err) {
-
       console.log(err)
-
+      alert('수정 실패')
     }
-
   }
 
   useEffect(() => {

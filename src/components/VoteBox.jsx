@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import api from '../api/axios.js'
 
 function VoteBox() {
 
@@ -9,15 +10,11 @@ function VoteBox() {
 
     try {
 
-      const res = await fetch(
-        'http://13.125.91.73:8080/api/votes/current'
-      )
+      const res = await api.get('/votes/current')
 
-      const data = await res.json()
+      console.log(res.data)
 
-      console.log(data)
-
-      setVote(data)
+      setVote(res.data)
 
     } catch (err) {
 
@@ -32,20 +29,9 @@ function VoteBox() {
 
     try {
 
-      await fetch(
-        `http://13.125.91.73:8080/api/votes/${vote.id}/vote`,
-        {
-          method: 'POST',
-
-          headers: {
-            'Content-Type': 'application/json',
-          },
-
-          body: JSON.stringify({
-            option: option,
-          }),
-        }
-      )
+      await api.post(`/votes/${vote.id}/vote`, {
+        option: option,
+      })
 
       // 다시 조회
       fetchVote()

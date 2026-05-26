@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import VoteBox from './VoteBox'
+import api from '../api/axios.js'
 
 function Sidebar() {
 
@@ -12,15 +13,11 @@ function Sidebar() {
 
     try {
 
-      const res = await fetch(
-        'http://localhost:8080/api/excuses/hall-of-fame'
-      )
+      const res = await api.get('/excuses/hall-of-fame')
 
-      const data = await res.json()
+      console.log(res.data)
 
-      console.log(data)
-
-      setHallOfFame(data)
+      setHallOfFame(res.data)
 
     } catch (err) {
 
@@ -35,11 +32,9 @@ function Sidebar() {
 
     try {
 
-      const res = await fetch(
-        'http://localhost:8080/api/excuses'
-      )
+      const res = await api.get('/excuses')
 
-      const data = await res.json()
+      const data = res.data
 
       if (data.length >= 2) {
 
