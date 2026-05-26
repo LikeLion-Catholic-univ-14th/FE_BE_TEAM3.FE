@@ -10,6 +10,7 @@ function App() {
 
   const [excuses, setExcuses] = useState([])
 
+  // 전체 조회
   const fetchExcuses = async () => {
 
     try {
@@ -36,6 +37,7 @@ function App() {
 
   }, [])
 
+  // 게시글 추가
   const addExcuse = async (newExcuse) => {
 
     try {
@@ -69,6 +71,7 @@ function App() {
 
   }
 
+  // 좋아요
   const handleLike = async (id) => {
 
     try {
@@ -90,22 +93,38 @@ function App() {
 
   }
 
+  // 삭제
   const handleDelete = async (id) => {
 
-    const updated = excuses.filter(
-      (item) => item.id !== id
-    )
+    const password = prompt('비밀번호를 입력하세요')
 
-    setExcuses(updated)
+    if (!password) return
 
     try {
 
-      await fetch(
+      const res = await fetch(
         `http://localhost:8080/api/excuses/${id}`,
         {
           method: 'DELETE',
+
+          headers: {
+            'Content-Type': 'application/json',
+          },
+
+          body: JSON.stringify({
+            password: password,
+          }),
         }
       )
+
+      if (!res.ok) {
+
+        alert('비밀번호가 틀렸습니다')
+        return
+
+      }
+
+      fetchExcuses()
 
     } catch (err) {
 
@@ -116,6 +135,7 @@ function App() {
   }
 
   return (
+
     <div>
 
       <Header />
@@ -152,7 +172,9 @@ function App() {
       <Footer />
 
     </div>
+
   )
+
 }
 
 export default App
