@@ -10,7 +10,7 @@ function VoteBox() {
     try {
 
       const res = await fetch(
-        'http://localhost:8080/api/votes/current'
+        'https://fe-be-team-3-fe.vercel.app/api/votes/current'
       )
 
       const data = await res.json()
@@ -33,7 +33,7 @@ function VoteBox() {
     try {
 
       await fetch(
-        `http://localhost:8080/api/votes/${vote.id}/vote`,
+        `https://fe-be-team-3-fe.vercel.app/api/votes/${vote.id}/vote`,
         {
           method: 'POST',
 

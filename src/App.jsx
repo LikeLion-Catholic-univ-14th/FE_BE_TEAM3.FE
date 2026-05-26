@@ -17,7 +17,7 @@ function App() {
     try {
 
       const res = await fetch(
-        'http://localhost:8080/api/excuses'
+        'https://fe-be-team-3-fe.vercel.app/api/excuses'
       )
 
       const data = await res.json()
@@ -44,7 +44,7 @@ function App() {
     try {
 
       await fetch(
-        'http://localhost:8080/api/excuses',
+        'https://fe-be-team-3-fe.vercel.app/api/excuses',
         {
           method: 'POST',
 
@@ -78,7 +78,7 @@ function App() {
     try {
 
       await fetch(
-        `http://localhost:8080/api/excuses/${id}/like`,
+        `https://fe-be-team-3-fe.vercel.app/api/excuses/${id}/like`,
         {
           method: 'POST',
         }
@@ -104,7 +104,7 @@ function App() {
     try {
 
       const res = await fetch(
-        `http://localhost:8080/api/excuses/${id}`,
+        `https://fe-be-team-3-fe.vercel.app/api/excuses/${id}`,
         {
           method: 'DELETE',
 
