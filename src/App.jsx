@@ -4,6 +4,7 @@ import ExcuseCard from './components/ExcuseCard'
 import ExcuseForm from './components/ExcuseForm'
 import Footer from './components/Footer'
 import Sidebar from './components/Sidebar'
+import api from './apl/axios.js'
 import { useState, useEffect } from 'react'
 
 function App() {
